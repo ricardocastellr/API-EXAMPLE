@@ -11,15 +11,10 @@ const MovieDetails = () => {
     const API_URL = `https://api.themoviedb.org/3/movie`;
 
     const generateRandomMovieId = () => {
-        // Generar un número aleatorio entre 1 y 100000 (ajustar el rango según sea necesario)
-        const id = Math.floor(Math.random() * 100000) + 1;
-        setRandomMovieId(id); // Actualizar el estado con el ID generado
-        return id;
+        return Math.floor(Math.random() * 100000) + 1;
     };
 
-    const fetchMovieDetails = async () => {
-        const id = generateRandomMovieId();
-
+    const fetchMovieDetails = async (id) => {
         try {
             const response = await axios.get(`${API_URL}/${id}?api_key=${API_KEY}`);
 
@@ -37,13 +32,20 @@ const MovieDetails = () => {
     };
 
     useEffect(() => {
-        // Empty dependency array, so the effect runs only once (when the component mounts)
-    }, []);
+        if (randomMovieId !== null) {
+            fetchMovieDetails(randomMovieId);
+        }
+    }, [randomMovieId]); // Ejecutar useEffect cuando randomMovieId cambie
+
+    const handleSearch = () => {
+        const id = generateRandomMovieId();
+        setRandomMovieId(id); // Generar un nuevo ID al hacer clic en el botón
+    };
 
     return (
         <div>
             <h1>Detalles de Película Aleatoria</h1>
-            <button onClick={fetchMovieDetails}>Generar Película Aleatoria</button>
+            <button onClick={handleSearch}>Generar Película Aleatoria</button>
             {randomMovieId && <p>ID de Película Generado: {randomMovieId}</p>}
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
