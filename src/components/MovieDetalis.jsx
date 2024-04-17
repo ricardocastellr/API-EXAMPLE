@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const MovieDetails = () => {
+function MovieDetails () {
     const [movieData, setMovieData] = useState(null);
     const [error, setError] = useState('');
     const [responseJson, setResponseJson] = useState('');
