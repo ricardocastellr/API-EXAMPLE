@@ -44,7 +44,6 @@ function MovieDetails () {
 
     return (
         <div>
-            <h1>Detalles de Película Aleatoria</h1>
             <button onClick={handleSearch}>Generar Película Aleatoria</button>
             {randomMovieId && <p>ID de Película Generado: {randomMovieId}</p>}
 
